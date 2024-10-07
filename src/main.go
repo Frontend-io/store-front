@@ -3,18 +3,18 @@ package main
 import (
 	"fmt"
 	"net/http"
+
+	"github.com/Frontend-io/store-front/pkg/handlers"
+)
+
+const (
+	port = 8080
 )
 
 func main() {
-	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
-		n, err := fmt.Fprintf(w, "Hello, world!")
-		if err != nil {
-			fmt.Sprintln("An error occured", err)
-		}
+	http.HandleFunc("/", handlers.Home)
 
-		val := fmt.Sprintf("Numbers of byte written: %v", n)
-		fmt.Println(val)
-	})
-
-	_ = http.ListenAndServe(":8080", nil)
+	portNumber := fmt.Sprintf(":%d", port)
+	fmt.Printf("Server running on port%s 🔥", portNumber)
+	_ = http.ListenAndServe(portNumber, nil)
 }
